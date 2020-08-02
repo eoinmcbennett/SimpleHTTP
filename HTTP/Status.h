@@ -1,0 +1,17 @@
+//
+// Created by Eoin on 30/07/2020.
+//
+
+#ifndef SERVERTEST_STATUS_H
+#define SERVERTEST_STATUS_H
+
+enum STATUS {
+    OK,
+    NOTFOUND,
+    SWITCHINGPROTOCOLS,
+    BADREQUEST,
+    INTERNALSERVERERROR,
+
+};
+
+#endif //SERVERTEST_STATUS_H
