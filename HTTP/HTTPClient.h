@@ -6,24 +6,23 @@
 #define SERVERTEST_HTTPCLIENT_H
 
 #include "../TCP/TCPClient.h"
-#include "../HTTP/HTTPServer.h"
 #include "../Util.h"
 #include "../WebSocket/WebSocketClient.h"
 
 #include "Response.h"
 #include "Method.h"
-#include "Response.h"
+#include "Request.h"
 /**
  * Represents a HTTP Client who is connected to the server
  */
 class HTTPClient : public TCPClient {
 private:
     WebSocketClient websocketClient;
-    HTTPServer& server;
+
 
 
 public:
-    explicit HTTPClient(unsigned short sock_fd, HTTPServer &server);
+    explicit HTTPClient(unsigned short sock_fd);
 
     int send(Response* response);
 
@@ -31,7 +30,7 @@ public:
 
     void setNewRequestCallback(void(*callback)(HTTPClient*,Request*));
 
-    void setClientServerInstance(HTTPServer& server);
+
 
 private:
     Request* checkForNewRequest();

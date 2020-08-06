@@ -38,6 +38,14 @@ private:
     Response *handlePostRequest(Request *pRequest);
 
     Response *handleUnsupportedRequest(Request *pRequest);
+
+    void freeResponse(Response* response);
+
+    void freeHeader(Header* header);
+
+    void freeRequest(Request* request);
+
+    Response *generate404();
 };
 
 #endif //SERVERTEST_HTTPSERVER_H

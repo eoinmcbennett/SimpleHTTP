@@ -6,8 +6,8 @@
 
 
 //Class constructors
-HTTPClient::HTTPClient(unsigned short sock_fd, HTTPServer &server) :
-TCPClient(sock_fd), server(server) {
+HTTPClient::HTTPClient(unsigned short sock_fd) :
+TCPClient(sock_fd) {
 
 }
 
@@ -19,7 +19,7 @@ void HTTPClient::loop() {
     while(true){
         Request* request = checkForNewRequest();
         if(request && newRequestCallback){
-            server.handleRequest(this,request);
+
         }
         if(TCPClient::isClientTimedOut()){
             TCPClient::closeConnection();
@@ -205,9 +205,7 @@ void HTTPClient::setNewRequestCallback(void (*callback)(HTTPClient *, Request *)
     this->newRequestCallback = callback;
 }
 
-void HTTPClient::setClientServerInstance(HTTPServer &server) {
-    this->server = server;
-}
+
 
 void freeClient(){
 

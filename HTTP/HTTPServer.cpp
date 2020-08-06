@@ -17,7 +17,7 @@ TCPServer(port,maxClients,clientTimeoutTime) {
  */
 HTTPClient* HTTPServer::checkForNewClients() {
     HTTPClient* client = (HTTPClient*)TCPServer::checkForNewClients();
-    client->setClientServerInstance(*this);
+
     clientThreads.emplace_back(clientThreadRunner,client);
 }
 
@@ -138,7 +138,7 @@ Response *HTTPServer::handleGetRequest(Request *pRequest) {
     rewind(file);
 
     //pre allocate space for the file
-    response->body = Util::allocateString(fileLength);
+    response->body = Util::Util::allocateString(fileLength);
 
     //Write the file contents into the memory buffer
     int curChar = fgetc(file);
@@ -171,4 +171,65 @@ Response *HTTPServer::handlePostRequest(Request *pRequest) {
  */
 Response *HTTPServer::handleUnsupportedRequest(Request *pRequest) {
     return nullptr;
+}
+
+
+/**
+ * Generates a 404 response for a request
+ * @return
+ */
+Response *HTTPServer::generate404() {
+    //Allocate the response
+    Response* response = (Response*)malloc(sizeof(Response));
+    bzero(response,sizeof(Response));
+
+    //Allocate and assign the status line
+    response->version = Util::allocateString(sizeof("HTTP/1.1 "));
+    strcpy(response->version,"HTTP/1.1");
+
+    response->statusCode = Util::allocateString(sizeof("404"));
+    strcpy(response->statusCode,"404");
+
+    response->status = NOTFOUND;
+
+    //Allocate response headers
+    Header* date = (Header*)malloc(sizeof(Header));
+
+    date->fieldName = Util::allocateString(sizeof("Date"));
+    strcpy(date->fieldName,"Date");
+
+    //Grab the current time for the request
+    std::time_t timeOfRequest = std::chrono::system_clock::to_time_t(std::chrono::system_clock::now());
+
+    char* data = std::ctime(&timeOfRequest);
+    date->fieldData = Util::allocateString(strlen(data) - 1);
+    data[strlen(data) - 1] = '\0';
+    strcpy(date->fieldData,data);
+
+
+
+    Header* server = (Header*)malloc(sizeof(Header));
+    server->fieldName = Util::allocateString(sizeof("Server"));
+    strcpy(server->fieldName,"Server");
+
+    server->fieldData = Util::allocateString(sizeof("Simple HTTP"));
+    strcpy(server->fieldData,"Simple HTTP");
+
+
+
+    Header* header2 = (Header*)malloc(sizeof(Header));
+
+    header2->fieldName = Util::allocateString(sizeof("Content-Length"));
+    strcpy(header2->fieldName,"Content-Length");
+
+    header2->fieldData = Util::allocateString(sizeof('0'));
+    strcpy(header2->fieldData,"0");
+
+    header2->next = nullptr;
+    date->next = header2;
+    server->next = date;
+
+    response->headers = server;
+
+    return response;
 }

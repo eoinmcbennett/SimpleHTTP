@@ -7,10 +7,10 @@
 
 #include "Method.h"
 #include "Header.h"
-#include "HTTPClient.h"
+
 
 struct Request{
-    HTTPClient sender;
+
     char* version;
     enum METHOD method;
     char* URL;
