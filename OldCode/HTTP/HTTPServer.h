@@ -6,6 +6,8 @@
 #define SERVERTEST_HTTPSERVER_H
 
 #include "../TCP/TCPServer.h"
+#include "../IObserver.h"
+
 #include "HTTPClient.h"
 #include "Response.h"
 #include "Request.h"
@@ -13,8 +15,10 @@
 #include <vector>
 #include <thread>
 
-class HTTPServer: public TCPServer {
+class HTTPServer: public TCPServer, public IObserver {
 private:
+
+
     std::vector<std::thread> clientThreads;
     const char* sitePath;
 
@@ -39,13 +43,9 @@ private:
 
     Response *handleUnsupportedRequest(Request *pRequest);
 
-    void freeResponse(Response* response);
-
-    void freeHeader(Header* header);
-
-    void freeRequest(Request* request);
-
     Response *generate404();
+
+    void Update(HTTPClient* client,Request* request) override;
 };
 
 #endif //SERVERTEST_HTTPSERVER_H

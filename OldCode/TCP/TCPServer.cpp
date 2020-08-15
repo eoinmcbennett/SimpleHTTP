@@ -70,8 +70,9 @@ TCPClient* TCPServer::checkForNewClients() {
         if(newClientCallback != nullptr){
             newClientCallback(client);
         }
+        return client;
     }
-
+    return nullptr;
 }
 
 void TCPServer::setNewConnectionCallback(void (*callback)(TCPClient *)) {

@@ -17,8 +17,7 @@ TCPServer(port,maxClients,clientTimeoutTime) {
  */
 HTTPClient* HTTPServer::checkForNewClients() {
     HTTPClient* client = (HTTPClient*)TCPServer::checkForNewClients();
-
-    clientThreads.emplace_back(clientThreadRunner,client);
+    return client;
 }
 
 /**
@@ -44,7 +43,9 @@ void HTTPServer::handleRequest(HTTPClient *sender, Request *request) {
  */
 void HTTPServer::loop() {
     while(true){
-        checkForNewClients();
+        HTTPClient* client = (HTTPClient*)checkForNewClients();
+        client->Attach(this);
+        clientThreads.emplace_back(std::thread(clientThreadRunner,client));
     }
 }
 
@@ -54,10 +55,7 @@ void HTTPServer::loop() {
  * Ensures each client is on a new thread allowing simultanious request processing
  * @param client - the new client
  */
-void HTTPServer::clientThreadRunner(HTTPClient *client) {
-    if(client == nullptr){
-        return;
-    }
+/*static*/ void HTTPServer::clientThreadRunner(HTTPClient *client) {
     client->loop();
 }
 
@@ -90,7 +88,6 @@ Response *HTTPServer::handleGetRequest(Request *pRequest) {
         response->status = NOTFOUND;
         response->statusCode = "404";
 
-        freeResponse(response);
         return generate404();
     }
 
@@ -173,6 +170,14 @@ Response *HTTPServer::handleUnsupportedRequest(Request *pRequest) {
     return nullptr;
 }
 
+void HTTPServer::Update(HTTPClient* client,Request *request) {
+    handleRequest(client,request);
+}
+
+HTTPServer::~HTTPServer() {
+
+}
+
 
 /**
  * Generates a 404 response for a request
@@ -232,4 +237,8 @@ Response *HTTPServer::generate404() {
     response->headers = server;
 
     return response;
+}
+
+void freeResponse(Response* response){
+    return;
 }

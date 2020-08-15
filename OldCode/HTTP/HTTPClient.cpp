@@ -19,15 +19,16 @@ void HTTPClient::loop() {
     while(true){
         Request* request = checkForNewRequest();
         if(request && newRequestCallback){
-
+            //Get the server to handle the request
+            Notify(request);
         }
         if(TCPClient::isClientTimedOut()){
             TCPClient::closeConnection();
-            freeClient();
             return;
         }
     }
 }
+
 
 /**
  * Checks for a new request from the client and returns this value
@@ -205,9 +206,54 @@ void HTTPClient::setNewRequestCallback(void (*callback)(HTTPClient *, Request *)
     this->newRequestCallback = callback;
 }
 
+/**
+ * Converts a response object into its string form to be sent back to a browser
+ * @param response
+ * @return
+ */
+const char *HTTPClient::convertResponseToRawData(Response *response) {
+    char *stringResponse = Util::allocateString(10000);
+    strcpy(stringResponse,"HTTP/1.1 ");
 
 
-void freeClient(){
+    strcat(stringResponse,response->statusCode);
 
+    switch(response->status){
+        case OK: strcat(stringResponse," OK\r\n"); break;
+        case NOTFOUND: strcat(stringResponse, " Not Found\r\n"); break;
+    }
+
+
+    struct Header* header = response->headers;
+
+    while(header != nullptr){
+        strcat(stringResponse,header->fieldName);
+        strcat(stringResponse,": ");
+        strcat(stringResponse,header->fieldData);
+        strcat(stringResponse,"\r\n");
+        header = header->next;
+    }
+    strcat(stringResponse,"\r\n");
+
+    if(response->body){
+        strcat(stringResponse,response->body);
+    }
+
+    return stringResponse;
 }
+
+
+
+void HTTPClient::Detach() {
+    observer = nullptr;
+}
+
+void HTTPClient::Attach(IObserver *observer) {
+    this->observer = observer;
+}
+
+void HTTPClient::Notify(Request *request) {
+    observer->Update(this,request);
+}
+
 

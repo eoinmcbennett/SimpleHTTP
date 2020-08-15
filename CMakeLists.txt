@@ -13,8 +13,8 @@ set(CMAKE_CXX_STANDARD 14)
 find_package (Threads)
 
 
-add_executable(ServerTest application.cpp)
-add_library(SimpleHTTPServer SHARED  TCP/TCPClient.cpp TCP/TCPClient.h TCP/TCPServer.cpp TCP/TCPServer.h HTTP/HTTPClient.cpp HTTP/HTTPClient.h HTTP/Response.h HTTP/Header.h HTTP/Status.h HTTP/Request.h HTTP/Method.h HTTP/HTTPServer.cpp HTTP/HTTPServer.h)
+add_executable(ServerTest application.cpp )
+add_library(SimpleHTTPServer src/net/Socket.cpp src/net/Socket.h src/net/ServerSocket.cpp src/net/ServerSocket.h src/net/HTTPServerSocket.cpp src/net/HTTPServerSocket.h src/net/Connection.cpp src/net/Connection.h src/HTTP/Request.cpp src/HTTP/Request.h src/HTTP/Header.h src/HTTP/Response.cpp src/HTTP/Response.h)
 
 target_link_libraries (SimpleHTTPServer Threads::Threads)
 target_link_libraries(ServerTest SimpleHTTPServer)

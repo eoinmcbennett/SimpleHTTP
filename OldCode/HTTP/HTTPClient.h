@@ -12,16 +12,17 @@
 #include "Response.h"
 #include "Method.h"
 #include "Request.h"
+#include "../ISubject.h"
+#include "../IObserver.h"
 /**
  * Represents a HTTP Client who is connected to the server
  */
-class HTTPClient : public TCPClient {
+class HTTPClient : public TCPClient, public ISubject{
 private:
-    WebSocketClient websocketClient;
-
-
+    IObserver* observer;
 
 public:
+    ~HTTPClient();
     explicit HTTPClient(unsigned short sock_fd);
 
     int send(Response* response);
@@ -30,15 +31,16 @@ public:
 
     void setNewRequestCallback(void(*callback)(HTTPClient*,Request*));
 
+    void Attach(IObserver* observer) override;
+    void Detach() override;
 
 
 private:
+    void Notify(Request* request) override;
     Request* checkForNewRequest();
     Request* parseRequestFromRawData(const char* data);
 
     const char* convertResponseToRawData(Response* response);
-
-    void freeClient();
 
 protected:
     void(*newRequestCallback)(HTTPClient*,Request*);
