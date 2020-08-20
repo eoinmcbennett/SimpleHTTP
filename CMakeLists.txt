@@ -14,7 +14,7 @@ find_package (Threads)
 
 
 add_executable(ServerTest application.cpp )
-add_library(SimpleHTTPServer src/net/Socket.cpp src/net/Socket.h src/net/ServerSocket.cpp src/net/ServerSocket.h src/net/HTTPServerSocket.cpp src/net/HTTPServerSocket.h src/net/Connection.cpp src/net/Connection.h src/HTTP/Request.cpp src/HTTP/Request.h src/HTTP/Header.h src/HTTP/Response.cpp src/HTTP/Response.h)
+add_library(SimpleHTTPServer src/net/Socket.cpp src/net/Socket.h src/net/ServerSocket.cpp src/net/ServerSocket.h src/net/HTTPServerSocket.cpp src/net/HTTPServerSocket.h src/net/Connection.cpp src/net/Connection.h src/HTTP/Request.cpp src/HTTP/Request.h src/HTTP/Header.h src/HTTP/Response.cpp src/HTTP/Response.h src/HTTP/threading/ThreadPool.cpp src/HTTP/threading/ThreadPool.h src/HTTP/threading/Job.h src/HTTP/RequestHandler.cpp)
 
 target_link_libraries (SimpleHTTPServer Threads::Threads)
 target_link_libraries(ServerTest SimpleHTTPServer)
