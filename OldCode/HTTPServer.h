@@ -65,7 +65,7 @@ private:
     struct Request* parseRequestFromRawData(const char* data);
 
     //test response
-    const char* response1 = "HTTP/1.1 200 OK "
+    const char* response1 = "http/1.1 200 OK "
                            "Content-Type: text/html; charset=UTF-8"
                            "Content-Length: 53"
                            "\r\n"
@@ -74,7 +74,7 @@ private:
                            "<h1>Well bai</h1>"
                            "</html>";
 
-    //Override the tcp server receive function so we can get HTTP requests
+    //Override the tcp server receive function so we can get http requests
     void onMessageReceived(uint16_t fd, char* message) override;
 
     void handleRequest(struct Request* request);

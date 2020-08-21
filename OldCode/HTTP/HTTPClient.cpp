@@ -52,13 +52,13 @@ int HTTPClient::send(Response *response) {
 }
 
 /**
- * Converts a response struct back to its HTTP string form for sending
+ * Converts a response struct back to its http string form for sending
  * @param response - The response to be converted
  * @return A pointer to the beginning of the string
  */
 const char* convertResponseToRawData(Response* response){
     char *stringResponse = Util::allocateString(10000);
-    strcpy(stringResponse,"HTTP/1.1 ");
+    strcpy(stringResponse,"http/1.1 ");
 
     strcat(stringResponse,response->statusCode);
 
@@ -213,7 +213,7 @@ void HTTPClient::setNewRequestCallback(void (*callback)(HTTPClient *, Request *)
  */
 const char *HTTPClient::convertResponseToRawData(Response *response) {
     char *stringResponse = Util::allocateString(10000);
-    strcpy(stringResponse,"HTTP/1.1 ");
+    strcpy(stringResponse,"http/1.1 ");
 
 
     strcat(stringResponse,response->statusCode);

@@ -12,7 +12,7 @@ set(CMAKE_CXX_STANDARD 14)
 
 find_package (Threads)
 
-file(GLOB_RECURSE SOURCEFILES src
+file(GLOB_RECURSE SOURCEFILES src/
         "*.h"
         "*.cpp"
         )

@@ -6,7 +6,7 @@
 #define SERVERTEST_HEADER_H
 
 /**
- * Defines a HTTP Request/Response header field
+ * Defines a http Request/Response header field
  */
 struct Header {
     char* fieldName;

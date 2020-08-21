@@ -12,7 +12,7 @@
 #define LF '\n'
 #define CR '\r'
 #define COLON ':'
-#define VERSION = "HTTP/1.1"
+#define VERSION = "http/1.1"
 
 class HTTPRequest {
 private:

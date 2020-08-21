@@ -5,19 +5,25 @@
 #include <thread>
 #include <vector>
 
-void callback(uint16_t fd, char* data);
-void newConn(TCPClient* client);
-void disconCB(uint16_t fd);
+class WebsocketHandler : public WSI{
 
-std::vector<std::thread> clientThreads;
+    void onConnection(WebsocketConnection connection){
 
-void serverThreadRunner();
+    }
 
-void clientThreadRunner(TCPClient* client);
+    void onDisconnect(WebsocketConnection connection){
+
+    }
+
+    void onData(WebsocketConnection connection, const char* data){
+        connection.send(data);
+    }
+};
 
 
 
 int main(){
-    HTTPServer* server = new HTTPServer(5050);
-    server->loop();
+    HTTPServer(5050,"../Site");
+
+
 }

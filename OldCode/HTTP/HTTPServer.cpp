@@ -12,7 +12,7 @@ TCPServer(port,maxClients,clientTimeoutTime) {
 }
 
 /**
- * Checks for new HTTP Clients attempting to connect to the server
+ * Checks for new http Clients attempting to connect to the server
  * @return
  */
 HTTPClient* HTTPServer::checkForNewClients() {
@@ -21,7 +21,7 @@ HTTPClient* HTTPServer::checkForNewClients() {
 }
 
 /**
- * Controls how HTTP requests are handled within the server
+ * Controls how http requests are handled within the server
  * Generates a response and calls send for the client
  * @param sender - The client sending the request
  * @param request - The request being sent
@@ -60,7 +60,7 @@ void HTTPServer::loop() {
 }
 
 /**
- * Handles a HTTP Get request
+ * Handles a http Get request
  * @param pRequest - The request to handle
  * @return A response to the request
  */
@@ -153,7 +153,7 @@ Response *HTTPServer::handleGetRequest(Request *pRequest) {
 }
 
 /**
- * Handles a HTTP Post request
+ * Handles a http Post request
  * @param pRequest The request to handle
  * @return A response to the request
  */
@@ -162,7 +162,7 @@ Response *HTTPServer::handlePostRequest(Request *pRequest) {
 }
 
 /**
- * Handles a Unsupported HTTP method
+ * Handles a Unsupported http method
  * @param pRequest The request to handle
  * @return A response to the request
  */
@@ -189,8 +189,8 @@ Response *HTTPServer::generate404() {
     bzero(response,sizeof(Response));
 
     //Allocate and assign the status line
-    response->version = Util::allocateString(sizeof("HTTP/1.1 "));
-    strcpy(response->version,"HTTP/1.1");
+    response->version = Util::allocateString(sizeof("http/1.1 "));
+    strcpy(response->version,"http/1.1");
 
     response->statusCode = Util::allocateString(sizeof("404"));
     strcpy(response->statusCode,"404");
@@ -217,8 +217,8 @@ Response *HTTPServer::generate404() {
     server->fieldName = Util::allocateString(sizeof("Server"));
     strcpy(server->fieldName,"Server");
 
-    server->fieldData = Util::allocateString(sizeof("Simple HTTP"));
-    strcpy(server->fieldData,"Simple HTTP");
+    server->fieldData = Util::allocateString(sizeof("Simple http"));
+    strcpy(server->fieldData,"Simple http");
 
 
 

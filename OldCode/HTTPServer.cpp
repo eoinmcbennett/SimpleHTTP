@@ -131,7 +131,7 @@ void HTTPServer::loop() {
     TCPServer::loop();
 
 
-    //Handle HTTP requests if they exist
+    //Handle http requests if they exist
     if(!requests.empty()){
 
     }
@@ -338,7 +338,7 @@ Response* HTTPServer::handleUnsupported(Request *pRequest) {
 
 const char *HTTPServer::formatResponse(Response *pResponse) {
     char *stringResponse = allocateString(10000);
-    strcpy(stringResponse,"HTTP/1.1 ");
+    strcpy(stringResponse,"http/1.1 ");
 
 
     strcat(stringResponse,pResponse->statusCode);
@@ -373,8 +373,8 @@ Response *HTTPServer::generate404() {
     bzero(response,sizeof(Response));
 
     //Allocate and assign the status line
-    response->version = allocateString(sizeof("HTTP/1.1 "));
-    strcpy(response->version,"HTTP/1.1");
+    response->version = allocateString(sizeof("http/1.1 "));
+    strcpy(response->version,"http/1.1");
 
     response->statusCode = allocateString(sizeof("404"));
     strcpy(response->statusCode,"404");
@@ -401,8 +401,8 @@ Response *HTTPServer::generate404() {
     server->fieldName = allocateString(sizeof("Server"));
     strcpy(server->fieldName,"Server");
 
-    server->fieldData = allocateString(sizeof("Simple HTTP"));
-    strcpy(server->fieldData,"Simple HTTP");
+    server->fieldData = allocateString(sizeof("Simple http"));
+    strcpy(server->fieldData,"Simple http");
 
 
 

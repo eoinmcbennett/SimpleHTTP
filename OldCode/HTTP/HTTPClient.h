@@ -15,7 +15,7 @@
 #include "../ISubject.h"
 #include "../IObserver.h"
 /**
- * Represents a HTTP Client who is connected to the server
+ * Represents a http Client who is connected to the server
  */
 class HTTPClient : public TCPClient, public ISubject{
 private:
