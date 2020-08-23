@@ -10,16 +10,24 @@
 #include <iostream>
 
 class Socket {
-private:
-    int sock_FD;
-
 protected:
+    int sock_FD;
+    sockaddr_in socket_addr;
+    size_t addr_len;
+
     void createSocket();
     void closeSocket();
 public:
-    virtual void init();
+
     Socket();
+    ~Socket();
     explicit Socket(int sock_FD);
+    Socket(int sock_FD,sockaddr_in socket_addr, size_t addr_len);
+
+    sockaddr_in getSocketAddr();
+    int getSockFD();
+    size_t getAddrLen();
+
 };
 
 

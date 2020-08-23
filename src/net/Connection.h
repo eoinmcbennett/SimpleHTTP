@@ -8,21 +8,21 @@
 #include <chrono>
 
 #include "Socket.h"
+#include <arpa/inet.h>
 
-//Forward Declarations for Response and request
-class Response;
-class Request;
-
+/**
+ * This class describes a client connection to the program
+ */
 class Connection {
-private:
+protected:
     Socket conn_socket;
     time_t timeOfLastMessage;
 
-    void operator()(Socket conn_socket);
-
 public:
-    virtual void sendResponse(Response*) = 0;
-    virtual Request* receiveRequest() = 0;
+    explicit Connection(Socket socket);
+
+    std::string getConnDetails();
+
 };
 
 

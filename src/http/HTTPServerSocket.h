@@ -5,12 +5,13 @@
 #ifndef SERVERTEST_HTTPSERVERSOCKET_H
 #define SERVERTEST_HTTPSERVERSOCKET_H
 
-#include "ServerSocket.h"
+#include "../net/ServerSocket.h"
+#include "HTTPConnection.h"
 
 class HTTPServerSocket: public ServerSocket {
 public:
-    void init() override;
-    Connection* AcceptConnection() override;
+    explicit HTTPServerSocket(unsigned short port);
+    HTTPConnection* AcceptConnection() override;
 };
 
 

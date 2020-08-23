@@ -7,6 +7,7 @@
 #include <condition_variable>
 #include <mutex>
 #include <iostream>
+#include <functional>
 
 class ThreadPool
 {
@@ -39,8 +40,6 @@ public:
 	}
 
 
-	ThreadPool(const ThreadPool&) = delete;
-	void operator = (const ThreadPool&) = delete;
 
 private:
 	void listen();

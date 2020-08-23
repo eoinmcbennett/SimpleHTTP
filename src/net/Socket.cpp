@@ -13,7 +13,7 @@ void Socket::createSocket() {
 }
 
 void Socket::closeSocket() {
-    close(sock_FD);
+    close(this->sock_FD);
 }
 
 Socket::Socket(int sock_FD) {
@@ -21,9 +21,28 @@ Socket::Socket(int sock_FD) {
 }
 
 Socket::Socket() {
-
+    createSocket();
 }
 
-void Socket::init() {
 
+Socket::~Socket() {
+    closeSocket();
+}
+
+Socket::Socket(int sock_FD, sockaddr_in socket_addr, size_t addr_len) {
+    this->sock_FD = sock_FD;
+    this->socket_addr = socket_addr;
+    this->addr_len = addr_len;
+}
+
+sockaddr_in Socket::getSocketAddr() {
+    return this->socket_addr;
+}
+
+int Socket::getSockFD() {
+    return this->sock_FD;
+}
+
+size_t Socket::getAddrLen() {
+    return this->addr_len;
 }

@@ -4,26 +4,37 @@
 #include <iostream>
 #include <thread>
 #include <vector>
+#include <future>
 
-class WebsocketHandler : public WSI{
 
-    void onConnection(WebsocketConnection connection){
+#include "src/http/HTTPServerSocket.h"
+#include "src/websocket/WebsocketHandler.h"
+#include "src/websocket/WebsocketConnection.h"
+
+class RaspiStreamWebsocketHandler : public WebsocketHandler{
+
+    void onConnect(WebsocketConnection connection) override {
 
     }
 
-    void onDisconnect(WebsocketConnection connection){
+    void onDisconnect(WebsocketConnection connection ) override {
 
     }
 
-    void onData(WebsocketConnection connection, const char* data){
-        connection.send(data);
+    void onData(WebsocketConnection connection, const char* data) override {
+
     }
 };
 
 
-
 int main(){
-    HTTPServer(5050,"../Site");
+    HTTPServerSocket* socket = new HTTPServerSocket(5050);
 
+    while(true){
+        HTTPConnection* connection = socket->AcceptConnection();
 
+        std::cout << "Client connected to server socket" << std::endl;
+
+        std::cout << connection->getConnDetails() << std::endl;
+    }
 }

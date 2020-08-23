@@ -1,13 +1,12 @@
 //
-// Created by Eoin on 30/07/2020.
+// Created by Eoin on 23/08/2020.
 //
 
 #ifndef SERVERTEST_METHOD_H
 #define SERVERTEST_METHOD_H
 
-enum METHOD {
+enum METHOD{
     GET,
-    POST,
     UNSUPPORTED
 };
 
