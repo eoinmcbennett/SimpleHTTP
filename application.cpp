@@ -10,6 +10,7 @@
 #include "src/http/HTTPServerSocket.h"
 #include "src/websocket/WebsocketHandler.h"
 #include "src/websocket/WebsocketConnection.h"
+#include "src/http/Response.h"
 
 class RaspiStreamWebsocketHandler : public WebsocketHandler{
 
@@ -28,13 +29,14 @@ class RaspiStreamWebsocketHandler : public WebsocketHandler{
 
 
 int main(){
-    HTTPServerSocket* socket = new HTTPServerSocket(5050);
+
+    Response response;
+    response.version = "HTTP/1.1";
+    std::cout << sizeof(response) << std::endl;
+    response.statusCode = "200";
+    std::cout << sizeof(response) << std::endl;
 
     while(true){
-        HTTPConnection* connection = socket->AcceptConnection();
 
-        std::cout << "Client connected to server socket" << std::endl;
-
-        std::cout << connection->getConnDetails() << std::endl;
     }
 }

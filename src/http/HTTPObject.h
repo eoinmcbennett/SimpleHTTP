@@ -8,7 +8,7 @@
 class HTTPConnection;
 
 struct HTTPObject{
-    HTTPConnectin* connection;
+    HTTPConnection* connection;
 };
 
 #endif //SERVERTEST_HTTPOBJECT_H
