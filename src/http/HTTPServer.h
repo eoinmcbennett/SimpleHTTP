@@ -15,7 +15,8 @@
 class HTTPServer {
 private:
     HTTPServerSocket* server_socket;
-    std::vector<HTTPConnection> persistent_connections;
+    std::vector<HTTPConnection*> persistent_connections;
+
     ThreadPool* thread_pool;
 
     //Handler for websocket connections. If null web sockets are unsupported by the server instance
@@ -25,23 +26,26 @@ private:
     std::string site_path;
     std::string default_404_page_path;
 
-    bool running = true;
+    bool running = false;
 
     std::thread listenerThread;
     std::thread senderThread;
 
-    std::vector<std::future<Response>> responses;
+
+    std::queue<Request*> requests;
+    std::vector<Response*> responses;
+
 
 
 public:
-    HTTPServer(unsigned short port, std::string site_path, std::string default_404_page_path, uint8_t no_of_threads);
+    HTTPServer(unsigned short port, std::string& site_path, std::string& default_404_page_path, uint8_t no_of_threads);
 
-    void setSitePath(std::string site_path);
+    void setSitePath(std::string& site_path);
     std::string getSitePath();
-    void listenForIncoming();
+    void listenForSocket();
 
 private:
-    void sendResponses();
+    void sendResponse(HTTPConnection& client, Response* response);
 
     void handleGetRequest(Request* request);
 

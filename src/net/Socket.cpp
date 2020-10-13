@@ -3,6 +3,7 @@
 //
 
 #include <zconf.h>
+
 #include "Socket.h"
 
 void Socket::createSocket() {
@@ -18,13 +19,10 @@ void Socket::closeSocket() {
 
 Socket::Socket(int sock_FD) {
     this->sock_FD = sock_FD;
-    this->wasCreatedExternally = true;
 }
 
 Socket::Socket() {
-    if(this->wasCreatedExternally == false){
-        createSocket();
-    }
+    createSocket();
 }
 
 
@@ -36,7 +34,6 @@ Socket::Socket(int sock_FD, sockaddr_in socket_addr, size_t addr_len) {
     this->sock_FD = sock_FD;
     this->socket_addr = socket_addr;
     this->addr_len = addr_len;
-    this->wasCreatedExternally = true;
 }
 
 sockaddr_in Socket::getSocketAddr() {

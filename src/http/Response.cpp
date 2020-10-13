@@ -2,17 +2,22 @@
 // Created by Eoin on 09/10/2020.
 //
 
+#include <cstring>
+
 #include "Response.h"
 
 /**
  * Handles conversion of a response to a raw string
  * @param response
- * @return
+ * @return pointer to the string response
  */
-std::string Response::convertResponseToString(Response *response) {
+const char* Response::convertResponseToString(Response* response) {
+
     std::string formattedRes;
-    formattedRes += response->version + ' ';
-    formattedRes += response->statusCode + ' ';
+    formattedRes += response->version;
+    formattedRes += ' ';
+    formattedRes += response->statusCode;
+    formattedRes += ' ';
 
     //Convert the status to its string representation
     switch(response->status){
@@ -25,6 +30,7 @@ std::string Response::convertResponseToString(Response *response) {
 
     formattedRes += "\r\n";
 
+    //Turn header content into strings
     Header* curHeader = response->headers;
     while(curHeader != nullptr){
         formattedRes += curHeader->fieldName;
@@ -38,5 +44,8 @@ std::string Response::convertResponseToString(Response *response) {
     formattedRes += response->body;
     formattedRes += "\r\n";
 
-    return formattedRes;
+    char* data = new char[formattedRes.length()];
+    strcpy(data,formattedRes.c_str());
+
+    return data;
 }

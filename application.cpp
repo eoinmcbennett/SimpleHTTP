@@ -55,6 +55,6 @@ int main(){
     HTTPServer server(8080,"","../../site",2);
 
     while(true){
-        server.listenForIncoming();
+        server.listenForSocket();
     }
 }

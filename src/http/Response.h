@@ -10,13 +10,13 @@
 #include "HTTPObject.h"
 
 struct Response : public HTTPObject {
-    std::string version;
-    std::string statusCode;
+    char* version;
+    char* statusCode;
     enum STATUS status;
     struct Header* headers;
-    std::string body;
+    char* body;
 
-    static std::string convertResponseToString(Response *response);
+    static const char* convertResponseToString(Response* response);
 };
 
 #endif //SERVERTEST_RESPONSE_H
