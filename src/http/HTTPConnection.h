@@ -12,7 +12,7 @@ class Request;
 
 class HTTPConnection : public Connection {
 public:
-    explicit HTTPConnection(Socket socket);
+    explicit HTTPConnection(Socket* socket);
 
     void sendResponse(Response*);
     Request* getRequest();

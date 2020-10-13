@@ -9,7 +9,7 @@
 
 class WebsocketConnection : public Connection{
 public:
-    WebsocketConnection(Socket socket);
+    WebsocketConnection(Socket* socket);
 
     void init();
     void send();

@@ -4,7 +4,7 @@
 
 #include "WebsocketConnection.h"
 
-WebsocketConnection::WebsocketConnection(Socket socket) : Connection(socket) {
+WebsocketConnection::WebsocketConnection(Socket* socket) : Connection(socket) {
 
 }
 

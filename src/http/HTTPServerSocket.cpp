@@ -11,14 +11,15 @@
 HTTPConnection* HTTPServerSocket::AcceptConnection() {
 
     //Accept and fill out the incoming clients details
-    sockaddr_in socket_addr;
-    size_t addr_len = sizeof(socket_addr);
-    int sock_fd = accept(this->sock_FD, (sockaddr*)&socket_addr, &addr_len);
+    sockaddr_in* socket_addr = new sockaddr_in;
+    size_t* addr_len = new size_t;
+    *addr_len = sizeof(socket_addr);
+    int sock_fd = accept(this->sock_FD, (sockaddr *)socket_addr, addr_len);
 
     //Check for error condition
     if(sock_fd > 0){
-        Socket* socket = new Socket(sock_fd,socket_addr,addr_len);
-        return new HTTPConnection(*socket);
+        Socket* socket = new Socket(sock_fd,*socket_addr,*addr_len);
+        return new HTTPConnection(socket);
     }
     perror("Failed to accept connection on socket: ");
 }

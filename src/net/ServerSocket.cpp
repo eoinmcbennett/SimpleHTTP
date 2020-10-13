@@ -13,7 +13,7 @@ void ServerSocket::bindSocket(unsigned short port){
     bzero(&this->socket_addr,addr_len);
 
     this->socket_addr.sin_family = AF_INET;
-    this->socket_addr.sin_addr.s_addr = htons(INADDR_ANY);
+    this->socket_addr.sin_addr.s_addr = INADDR_ANY;
     this->socket_addr.sin_port = htons(port);
 
     int bind_res = bind(this->sock_FD, (struct sockaddr *) &this->socket_addr, addr_len);
@@ -26,13 +26,13 @@ void ServerSocket::bindSocket(unsigned short port){
  * Sets the socket to listen
  */
 void ServerSocket::listenSocket() {
-    int listen_res = listen(this->sock_FD,4);
+    int listen_res = listen(this->sock_FD,1);
     if(listen_res < 0){
         perror("Listen failed: ");
     }
 }
 
-ServerSocket::ServerSocket(unsigned short port) {
+ServerSocket::ServerSocket(unsigned short port): Socket() {
     bindSocket(port);
     listenSocket();
 }

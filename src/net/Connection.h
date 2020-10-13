@@ -15,11 +15,11 @@
  */
 class Connection {
 protected:
-    Socket conn_socket;
+    Socket* conn_socket;
     time_t timeOfLastMessage;
 
 public:
-    explicit Connection(Socket socket);
+    explicit Connection(Socket* socket);
 
     std::string getConnDetails();
 

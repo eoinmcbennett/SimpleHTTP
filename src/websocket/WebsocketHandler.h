@@ -9,9 +9,10 @@ class WebsocketConnection;
 
 class WebsocketHandler {
 public:
-    virtual void onConnect(WebsocketConnection connection);
-    virtual void onDisconnect(WebsocketConnection connection);
-    virtual void onData(WebsocketConnection connection, const char* data);
+    virtual void onConnect(WebsocketConnection connection) = 0;
+    virtual void onDisconnect(WebsocketConnection connection) = 0;
+    virtual void onData(WebsocketConnection connection, const char* data) = 0;
+    virtual ~WebsocketHandler() = default;
 };
 
 #endif //SERVERTEST_WEBSOCKETHANDLER_H

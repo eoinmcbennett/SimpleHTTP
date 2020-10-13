@@ -14,14 +14,12 @@
 
 class HTTPServer {
 private:
-
-
     HTTPServerSocket* server_socket;
     std::vector<HTTPConnection> persistent_connections;
     ThreadPool* thread_pool;
 
     //Handler for websocket connections. If null web sockets are unsupported by the server instance
-    WebsocketHandler ws_handler;
+    WebsocketHandler* ws_handler;
 
     //Paths to needed files
     std::string site_path;
@@ -40,19 +38,14 @@ public:
 
     void setSitePath(std::string site_path);
     std::string getSitePath();
-
-private:
     void listenForIncoming();
 
+private:
     void sendResponses();
 
     void handleGetRequest(Request* request);
 
     void handleUnsupported(Request* request);
-
-
-
-
 };
 
 

@@ -17,9 +17,11 @@ protected:
 
     void createSocket();
     void closeSocket();
+private:
+    bool wasCreatedExternally;
 public:
 
-    Socket();
+    explicit Socket();
     ~Socket();
     explicit Socket(int sock_FD);
     Socket(int sock_FD,sockaddr_in socket_addr, size_t addr_len);

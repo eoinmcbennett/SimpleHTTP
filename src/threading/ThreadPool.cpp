@@ -27,6 +27,7 @@ void ThreadPool::listen() {
 			workToBeDone = work.front();
 			work.pop();
 		}
+
 		std::cout << "Job started on thread: " << std::this_thread::get_id() << std::endl;
 
 		workToBeDone();
