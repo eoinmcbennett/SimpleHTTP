@@ -28,8 +28,8 @@ private:
 
     bool running = false;
 
-    std::thread listenerThread;
-    std::thread senderThread;
+    std::thread* listenerThread;
+    std::thread* senderThread;
 
 
     std::queue<Request*> requests;
@@ -38,18 +38,18 @@ private:
 
 
 public:
-    HTTPServer(unsigned short port, std::string& site_path, std::string& default_404_page_path, uint8_t no_of_threads);
+    HTTPServer(unsigned short port, const std::string& site_path, const std::string& default_404_page_path, uint8_t no_of_threads);
 
     void setSitePath(std::string& site_path);
-    std::string getSitePath();
+    std::string getSitePath() const;
     void listenForSocket();
 
 private:
-    void sendResponse(HTTPConnection& client, Response* response);
+    void sendResponse(HTTPConnection& client, Response* response) const;
 
-    void handleGetRequest(Request* request);
+    void handleGetRequest(Request* request) const;
 
-    void handleUnsupported(Request* request);
+    void handleUnsupported(Request* request) const;
 };
 
 

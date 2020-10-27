@@ -7,9 +7,8 @@
 
 #include "Header.h"
 #include "Status.h"
-#include "HTTPObject.h"
 
-struct Response : public HTTPObject {
+struct Response  {
     char* version;
     char* statusCode;
     enum STATUS status;

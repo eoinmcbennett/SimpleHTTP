@@ -50,5 +50,8 @@ Request* HTTPConnection::getRequest() {
         recv_buf = temp;
     }
 
-    return Request::getRequestFromRawString(recv_buf);
+    Request* req = Request::getRequestFromRawString(recv_buf);
+    req->sender = this;
+    delete[] recv_buf;
+    return req;
 }

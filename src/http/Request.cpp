@@ -4,6 +4,10 @@
 
 #include "Request.h"
 
+#include <strings.h>
+#include <cstring>
+
+
 Request* Request::getRequestFromRawString(const char* data){
     Request* res = new Request;
     bzero(res,sizeof(struct Request));
@@ -60,6 +64,5 @@ Request* Request::getRequestFromRawString(const char* data){
     res->body = new char[body_len];
     memcpy(res->body,data,body_len);
 
-    delete data;
     return res;
 }

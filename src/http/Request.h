@@ -5,20 +5,20 @@
 #ifndef SERVERTEST_REQUEST_H
 #define SERVERTEST_REQUEST_H
 
-#include <strings.h>
-#include <cstring>
-#include "HTTPObject.h"
+
 #include "Method.h"
 #include "Header.h"
 
+class HTTPConnection;
 
-struct Request : public HTTPObject{
+struct Request {
 public:
     char* version;
     enum METHOD method;
     char* URL;
     struct Header* headers;
     char* body;
+    HTTPConnection* sender;
 
     static Request* getRequestFromRawString(const char* data);
 };

@@ -14,16 +14,9 @@
 #include "src/http/Response.h"
 #include "src/http/HTTPServer.h"
 
-/*
- *
+#include "src/util/Queue.h"
 
-
-
-
-
- */
-
-
+/**
 void* operator new(size_t size){
     void* mem = malloc(size);
     std::cout << "Allocated " << size << " bytes at " << mem << std::endl;
@@ -34,14 +27,14 @@ void operator delete(void* memory){
     std::cout << "Freed memory at " << memory << std::endl;
     free(memory);
 }
-
+**/
 class RaspiStreamWebsocketHandler : public WebsocketHandler{
 
     void onConnect(WebsocketConnection connection) override {
 
     }
 
-    void onDisconnect(WebsocketConnection connection ) override {
+    void onDisconnect(WebsocketConnection connection) override {
 
     }
 
@@ -52,9 +45,6 @@ class RaspiStreamWebsocketHandler : public WebsocketHandler{
 
 
 int main(){
-    HTTPServer server(8080,"","../../site",2);
+    //HTTPServer server(8080,  "", "../../site", 2);
 
-    while(true){
-        server.listenForSocket();
-    }
 }
