@@ -13,9 +13,9 @@ class HTTPConnection;
 
 struct Request {
 public:
-    char* version;
+    const char* version;
     enum METHOD method;
-    char* URL;
+    const char* URL;
     struct Header* headers;
     char* body;
     HTTPConnection* sender;

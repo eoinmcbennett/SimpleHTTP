@@ -5,12 +5,13 @@
 #ifndef SERVERTEST_HTTPSERVER_H
 #define SERVERTEST_HTTPSERVER_H
 
-#include <map>
+#include "../util/Queue.h"
 
 #include "HTTPServerSocket.h"
 #include "../threading/ThreadPool.h"
 #include "../websocket/WebsocketHandler.h"
-
+#include "Request.h"
+#include "Response.h"
 
 class HTTPServer {
 private:
@@ -28,12 +29,14 @@ private:
 
     bool running = false;
 
-    std::thread* listenerThread;
-    std::thread* senderThread;
+    std::thread* connectionListener;
+    std::thread* requestListener;
+    std::thread* requestHandler;
+    std::thread* responseSender;
 
 
-    std::queue<Request*> requests;
-    std::vector<Response*> responses;
+    Queue<Request*> requests;
+    Queue<Response*> responses;
 
 
 
@@ -41,15 +44,21 @@ public:
     HTTPServer(unsigned short port, const std::string& site_path, const std::string& default_404_page_path, uint8_t no_of_threads);
 
     void setSitePath(std::string& site_path);
+
     std::string getSitePath() const;
-    void listenForSocket();
+    std::string getDefault404Path() const;
+    WebsocketHandler* getWebsocketHandler() const;
+
 
 private:
-    void sendResponse(HTTPConnection& client, Response* response) const;
+    void listenForSocket();
+    void listenForRequests();
+    void handleRequest();
+    void sendResponse();
 
-    void handleGetRequest(Request* request) const;
+    bool handleGetRequest(Request*& request, Response*& response) const;
+    bool handleUnsupported(Request*& request, Response*& response) const;
 
-    void handleUnsupported(Request* request) const;
 };
 
 

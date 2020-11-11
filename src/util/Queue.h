@@ -61,15 +61,17 @@ public:
     }
 
     T dequeue(){
-        mutex.lock();
-        if(this->m_noOfElements < ((this->m_curSize / SIZEOF_T) - GROWTH_AMOUNT)){
-            decSize(GROWTH_AMOUNT);
+        if(!isEmpty()){
+            mutex.lock();
+            if(this->m_noOfElements < ((this->m_curSize / SIZEOF_T) - GROWTH_AMOUNT)){
+                decSize(GROWTH_AMOUNT);
+            }
+            T data = this->m_data[0];
+            shiftQueue();
+            m_noOfElements--;
+            mutex.unlock();
+            return data;
         }
-        T data = this->m_data[0];
-        shiftQueue();
-        m_noOfElements--;
-        mutex.unlock();
-        return data;
     }
 
     T peek(){
@@ -83,10 +85,8 @@ public:
         return this->m_noOfElements;
     }
 
-    void print(){
-        for(int i = 0; i < m_noOfElements; i++){
-            std::cout << m_data[i] << std::endl;
-        }
+    bool isEmpty(){
+        return m_noOfElements == 0;
     }
 
 private:
@@ -127,10 +127,12 @@ private:
     }
 
     void shiftQueue(){
-        for(int i = 0; i < this->m_noOfElements - 1; i++){
-            this->m_data[i] = this->m_data[i + 1];
+        if(!isEmpty()){
+            for(int i = 1; i < this->m_noOfElements; i++){
+                this->m_data[i - 1] = this->m_data[i];
+            }
+            this->m_data[this->m_noOfElements - 1] = 0;
         }
-        this->m_data[this->m_noOfElements - 1] = 0;
     }
 };
 

@@ -23,13 +23,13 @@ Request* Request::getRequestFromRawString(const char* data){
     //Handle the url storage
     unsigned int url_Len = strcspn(data," ");
     res->URL = new char[url_Len];
-    memcpy(res->URL, data, url_Len);
+    memcpy((char*)res->URL, data, url_Len);
     data+= url_Len + 1; //Push the pointer to the version
 
     //Handle version storage
     unsigned char version_Len = strcspn(data,"\r\n");
     res->version = new char[version_Len];
-    memcpy(res->version, data, version_Len);
+    memcpy((char*)res->version, data, version_Len);
     data += version_Len + 2; //Push data pointer into currentHeader field
 
 

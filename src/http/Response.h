@@ -8,12 +8,15 @@
 #include "Header.h"
 #include "Status.h"
 
+class HTTPConnection;
+
 struct Response  {
-    char* version;
-    char* statusCode;
+    const char* version;
+    const char* statusCode;
     enum STATUS status;
     struct Header* headers;
     char* body;
+    HTTPConnection* recipient;
 
     static const char* convertResponseToString(Response* response);
 };

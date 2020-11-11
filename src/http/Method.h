@@ -7,6 +7,7 @@
 
 enum METHOD{
     GET,
+    HEAD,
     UNSUPPORTED
 };
 

@@ -45,6 +45,9 @@ class RaspiStreamWebsocketHandler : public WebsocketHandler{
 
 
 int main(){
-    //HTTPServer server(8080,  "", "../../site", 2);
+    HTTPServer server(8080,  "", "../../site", 2);
 
+    while(true){
+        
+    }
 }
